@@ -3,6 +3,10 @@ class Item < ActiveRecord::Base
   has_many :variants
   has_many :variant_items, :through => :variants, 
     :source => :variant_item 
+  
+  has_many :properties, :through => :property_values
+  has_many :property_values 
+  has_many :values, :through => :property_values
     
   attr_accessible :name  
   
