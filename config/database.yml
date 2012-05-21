@@ -1,4 +1,4 @@
-# PostgreSQL. Versions 8.2 and up are supported.
+# PostgreSQL. Versions 7.4 and 8.x are supported.
 #
 # Install the pg driver:
 #   gem install pg
@@ -17,8 +17,7 @@ development:
   encoding: unicode
   database: salorg_development
   pool: 5
-  username: salorg
-  password:
+  username: weyewe
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -43,13 +42,11 @@ test:
   encoding: unicode
   database: salorg_test
   pool: 5
-  username: salorg
-  password:
+  username: weyewe
 
 production:
   adapter: postgresql
   encoding: unicode
   database: salorg_production
   pool: 5
-  username: salorg
-  password:
+  username: weyewe
