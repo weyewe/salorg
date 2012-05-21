@@ -7,7 +7,7 @@ class CategoryEdge < ActiveRecord::Base
   # before_destroy :propagate_edge_deletion_to_the_root 
   
   
-  attr_accessible :category_id, :sub_category_id
+  attr_accessible :category_id, :sub_category_id, :delta
   
   
   

@@ -59,8 +59,9 @@ class Category < ActiveRecord::Base
   def create_sub_category(params)
     category = Category.new :title => params[:title], :description => params[:description]
     category.absolute_depth = self.absolute_depth + 1  
+    category.direct_parent_category_id = self.id
     category.save
-    
+    # category.propagate_edge_creation_to_the_root
     return category
   end
   
