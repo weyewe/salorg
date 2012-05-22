@@ -45,6 +45,12 @@ describe Category do
       }).count.should == 2 
     end
     
+    it "should delete N  edges post deletion" do
+      total_category_edges_before_destroy = CategoryEdge.count 
+      @sub_category_depth_2.destroy 
+      CategoryEdge.count.should == ( total_category_edges_before_destroy - 2 ) 
+    end
+    
     
     
     

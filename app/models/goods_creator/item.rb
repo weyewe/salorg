@@ -1,12 +1,23 @@
 class Item < ActiveRecord::Base
   # attr_accessible :title, :body
+  belongs_to :supplier 
+  has_many :item_batches # item is bought batch by batch, with different price
+  # this is the method to calculate price 
+  
+  
   has_many :variants
   has_many :variant_items, :through => :variants, 
     :source => :variant_item 
   
-  has_many :properties, :through => :property_values
+  
+  # Variant Creator 
   has_many :property_values 
+  has_many :properties, :through => :property_values
   has_many :values, :through => :property_values
+  
+  
+  # Brand Ownership
+  belongs_to :brand 
     
   attr_accessible :name  
   
