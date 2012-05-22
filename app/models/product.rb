@@ -8,13 +8,13 @@ class Product < ActiveRecord::Base
   
   has_many :price_histories
   
-  after_create :add_price_history
+  after_create :add_initial_price_history
                               
                               
   def self.direct_promote_base_item_to_product_on_behalf_of_supplier(product_creator, supplier, 
                               item_params, 
                               brand, property_value_list, price )
-    if price  < 0 
+    if price  < BigDecimal("0")
       return nil
     end
     
@@ -39,13 +39,22 @@ class Product < ActiveRecord::Base
     User.find_by_id self.product_creator_id 
   end
   
+  def change_price(new_price, price_changer)
+    if new_price < BigDecimal("0") or not price_changer.has_role?(:product_creator)
+      return nil
+    else
+      self.price = new_price
+      price_history = PriceHistory.add_price_history( price_changer, self.price, self)
+      return price_history
+    end
+  end
   
-  def add_price_history
+  
+  
+  
+  def add_initial_price_history
+    # the first price created
     PriceHistory.add_price_history( self.product_creator , self.price, self)
-    # new_price_history = self.price_histories.create
-    
-    # new_price_history.set
-    
   end
   
   

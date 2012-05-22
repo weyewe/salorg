@@ -71,4 +71,36 @@ describe Product do
       product.should have(1).price_histories
     end
   end
+  
+  context "Changing Price" do
+    before(:each) do 
+      @product = Product.direct_promote_base_item_to_product_on_behalf_of_supplier(@product_creator, @supplier, 
+                                  {:name => "Azalea"}, 
+                                  @second_skin, [@property_size_hash], BigDecimal("500000") )
+    end
+    
+    it "should not allow negative price" do
+      result = @product.change_price(BigDecimal("-50") , @product_creator)
+      result.should be_nil 
+    end
+    
+    it "should only be changed by prodct creator" do
+      result = @product.change_price(BigDecimal("50") , @warehouse_officer)
+      result.should be_nil
+    end
+    
+    it "should change the price, and add new price history" do
+      initial_price_history_count = @product.price_histories.count 
+      new_price = BigDecimal("100000")
+      new_price_history = @product.change_price( new_price , @product_creator)
+      
+      new_price_history.should be_valid 
+      
+      final_price_history_count = @product.price_histories.count 
+      
+      (final_price_history_count - initial_price_history_count).should == 1 
+      @product.price.should == new_price 
+    end
+    
+  end
 end

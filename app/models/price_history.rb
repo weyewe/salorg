@@ -8,5 +8,6 @@ class PriceHistory < ActiveRecord::Base
     price_history.price_changer_id = user.id
     price_history.price = price 
     price_history.save
+    return price_history 
   end
 end
