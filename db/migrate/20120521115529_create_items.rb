@@ -9,7 +9,7 @@ class CreateItems < ActiveRecord::Migration
       t.integer :base_item_id 
       t.boolean :is_base_item , :default => true 
       
-      t.integer :brand_id 
+      t.integer :category_id 
       
       
       # t.decimal :base_price , :precision => 9, :scale => 2 , :default => 0  # highest price is 7 digit

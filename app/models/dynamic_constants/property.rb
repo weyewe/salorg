@@ -13,6 +13,6 @@ class Property < ActiveRecord::Base
   end
   
   def has_value?(value)
-    self.values.where(:value_id => value.id ).count == 1 
+    self.values.where(:id => value.id ).count == 1 
   end
 end

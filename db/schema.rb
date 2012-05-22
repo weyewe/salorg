@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120522043159) do
+ActiveRecord::Schema.define(:version => 20120522122450) do
 
   create_table "assignments", :force => true do |t|
     t.integer  "role_id"
@@ -63,9 +63,24 @@ ActiveRecord::Schema.define(:version => 20120522043159) do
     t.string   "name"
     t.integer  "base_item_id"
     t.boolean  "is_base_item", :default => true
-    t.integer  "brand_id"
+    t.integer  "category_id"
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "product_memberships", :force => true do |t|
+    t.integer  "item_id"
+    t.integer  "product_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "products", :force => true do |t|
+    t.decimal  "price",        :precision => 9, :scale => 2, :default => 0.0
+    t.integer  "product_type",                               :default => 0
+    t.integer  "brand_id"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
   end
 
   create_table "properties", :force => true do |t|

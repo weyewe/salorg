@@ -11,6 +11,10 @@ class PropertyValue < ActiveRecord::Base
   
   
   def PropertyValue.valid_property_value_list?( property_value_list )
+    if property_value_list.length == 0 
+      return false
+    end
+    
     property_value_list.each do |property_value_pair|
       property = Property.find_by_id property_value_pair[:property_id]
       value = Value.find_by_id property_value_pair[:value_id]

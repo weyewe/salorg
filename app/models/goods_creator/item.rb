@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :name  , :category_id 
   belongs_to :supplier 
   has_many :item_batches # item is bought batch by batch, with different price
   # this is the method to calculate price 
@@ -19,11 +19,15 @@ class Item < ActiveRecord::Base
   has_many :product_memberships
   has_many :products, :through => :product_memberships 
   
+  #Category Ownership
+  belongs_to :category 
   
   # Brand Ownership
-  belongs_to :brand 
+  # belongs_to :brand 
     
-  attr_accessible :name  
+  
+  
+  validates_presence_of :name 
   
   
 =begin
@@ -54,9 +58,9 @@ class Item < ActiveRecord::Base
     
   end
   
-  def self.create_item_on_behalf_of_supplier(product_creator, supplier, 
+  def self.create_base_item_on_behalf_of_supplier(product_creator, supplier, 
                               item_params, 
-                              brand, property_value_list, price )
+                              property_value_list )
     if not product_creator.has_role?(:product_creator)
       return nil
     end
@@ -65,10 +69,14 @@ class Item < ActiveRecord::Base
       return nil
     end
     
+    if supplier.nil?
+      return nil
+    end
+    
     item = Item.create(:name => item_params[:name])
     
     item.supplier_id = supplier.id 
-    item.brand_id = brand.id 
+    # item.brand_id = brand.id 
     
     item.embed_property_value_list( property_value_list )
     

@@ -21,6 +21,8 @@ class Category < ActiveRecord::Base
   before_destroy :propagate_edge_deletion_to_the_root
   
   attr_accessible :title, :description 
+  
+  has_many :items 
               
 =begin
   For the self many-many referential 
