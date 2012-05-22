@@ -1,5 +1,5 @@
 class Value < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :name, :property_id 
   belongs_to :property 
   
   has_many :items, :through => :property_values 

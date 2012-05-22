@@ -1,4 +1,4 @@
 class Brand < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :name, :member_discount, :stockist_discount 
   has_many :items 
 end
