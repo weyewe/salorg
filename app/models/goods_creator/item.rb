@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  attr_accessible :name  , :category_id 
+  attr_accessible :name  , :category_id
   belongs_to :supplier 
   has_many :item_batches # item is bought batch by batch, with different price
   # this is the method to calculate price 
@@ -114,6 +114,17 @@ class Item < ActiveRecord::Base
     if self.has_similar_property_value_list?( property_value_list )
       return nil
     end
+    
+    if not product_creator.has_role?(:product_creator)
+      return nil
+    end
+    
+    variant_item  = self.clone
+    variant_item.is_base_item = false
+    variant_item.base_item_id = self.id 
+    variant_item.save
+    
+    return variant_item 
   end
   # 
   # def self.create_variant_item_on_behalf_of_supplier(product_creator, supplier, 

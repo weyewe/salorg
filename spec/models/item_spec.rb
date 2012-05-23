@@ -112,14 +112,23 @@ describe Item do
     end
     
     it "should not allow duplicate property value in the item-variant_items group" do
-      # @property_size_hash = {
-      #   :property_id => @property_size.id,
-      #   :value_id => @small_size_value.id 
-      # }
+      new_property_size_hash = {
+        :property_id => @property_size.id,
+        :value_id => @medium_size_value.id 
+      }
       
-      variant_item = base_item.create_variant_item( @product_creator, [@property_size_hash] )
-      
+      variant_item = @base_item.create_variant_item( @product_creator, [@property_size_hash] )
       variant_item.should be_nil
+      
+      
+      variant_item = @base_item.create_variant_item( @product_creator, [new_property_size_hash] )
+      variant_item.should be_valid
+      
+      variant_item.is_base_item.should be_false 
+      variant_item.base_item_id.should == @base_item.id 
+      variant_item.name.should == @base_item.name 
+      
+      variant_item.base_item.id.should == @base_item.id
     end
   end
   

@@ -8,6 +8,8 @@ class CreateItemBatches < ActiveRecord::Migration
       t.integer :quantity_sold
       t.boolean :is_finished, :default => false 
       
+      t.integer :item_id 
+      
       # linked 
       t.integer :purchase_order_id 
 

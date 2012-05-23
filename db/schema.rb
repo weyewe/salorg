@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(:version => 20120522154232) do
     t.integer  "quantity_received"
     t.integer  "quantity_sold"
     t.boolean  "is_finished",                                      :default => false
+    t.integer  "item_id"
     t.integer  "purchase_order_id"
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false

@@ -102,18 +102,23 @@ puts "Done creating the users"
 # 2ndSkin condition => data migration in the short run 
 Product.direct_promote_base_item_to_product_on_behalf_of_supplier(product_creator, supplier, 
                             item_params, 
-                            brand, property_value_list, price )
+                            brand, property_value_list, price, base_price, current_quantity )
 
 # create the variations
 
 Product.direct_promote_variant_item_to_product_on_behalf_of_supplier(product_creator,supplier, 
                             base_item,  # name is taken from the base item 
-                            brand, property_value_list, price )
+                            brand, property_value_list, price, base_price, current_quantity )
                             
 # keep creating several products and its variant 
 
+# in the migration, it alwayys come with the current quantity -> Initial Setup, no documents 
+
+
 # item without category? it is cool bro.. not that important. Category is just for data display
 # not impacting the continuous data evolution . It is optional. Category should sticks to item, not product
+
+# product creation is OK, with the final price attached. But we need the base price 
 
 # then, add the quantity. There has to be documents to add the quantity
 # Incoming documents: from the PO -> Receipt Delivery
