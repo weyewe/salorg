@@ -104,10 +104,23 @@ describe Item do
     
   end
   
-  context "Post create" do
-    it "should create SKU" # we ignore this for now. no clear rule
-    # worst case: we have the unique item id
+  context "Pre condition, create variant item on behalf of supplier" do
+    before(:each) do
+      @base_item = Item.create_base_item_on_behalf_of_supplier(@product_creator, @supplier, 
+                                  {:name => "Azalea"}, 
+                                  [ @property_size_hash] )
+    end
+    
+    it "should not allow duplicate property value in the item-variant_items group" do
+      # @property_size_hash = {
+      #   :property_id => @property_size.id,
+      #   :value_id => @small_size_value.id 
+      # }
+      
+      variant_item = base_item.create_variant_item( @product_creator, [@property_size_hash] )
+      
+      variant_item.should be_nil
+    end
   end
-  
   
 end

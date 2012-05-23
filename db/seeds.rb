@@ -99,6 +99,28 @@ puts "Done creating the users"
   # at least, it has to have one property . Katalog -> property : edition, year 
 # product_creator.create_variant_item_on_behalf_of_supplier(base_item, supplier, item_name, brand, property_value_list)
 
+# 2ndSkin condition => data migration in the short run 
+Product.direct_promote_base_item_to_product_on_behalf_of_supplier(product_creator, supplier, 
+                            item_params, 
+                            brand, property_value_list, price )
+
+# create the variations
+
+Product.direct_promote_variant_item_to_product_on_behalf_of_supplier(product_creator,supplier, 
+                            base_item,  # name is taken from the base item 
+                            brand, property_value_list, price )
+                            
+# keep creating several products and its variant 
+
+# item without category? it is cool bro.. not that important. Category is just for data display
+# not impacting the continuous data evolution . It is optional. Category should sticks to item, not product
+
+# then, add the quantity. There has to be documents to add the quantity
+# Incoming documents: from the PO -> Receipt Delivery
+# incoming documents: from the customer 
+# Incoming Documents: data migration 
+
+
 
 
 

@@ -55,21 +55,30 @@ class Item < ActiveRecord::Base
         :position => count)
       count += 1 
     end
-    
   end
+  
+  def self.valid_item_params_to_create_items_on_behalf_of_supplier( product_creator, property_value_list , supplier )
+    if not product_creator.has_role?(:product_creator)
+      return false
+    end
+
+    if not PropertyValue.valid_property_value_list?( property_value_list )
+      return false
+    end
+
+    if supplier.nil?
+      return false
+    end
+
+    return true
+  end
+
   
   def self.create_base_item_on_behalf_of_supplier(product_creator, supplier, 
                               item_params, 
                               property_value_list )
-    if not product_creator.has_role?(:product_creator)
-      return nil
-    end
-    
-    if not PropertyValue.valid_property_value_list?( property_value_list )
-      return nil
-    end
-    
-    if supplier.nil?
+   
+    if not self.valid_item_params_to_create_items_on_behalf_of_supplier( product_creator, property_value_list , supplier )
       return nil
     end
     
@@ -83,5 +92,52 @@ class Item < ActiveRecord::Base
     return item 
   end
   
+=begin
+  Create VariantItem on behalf of supplier 
+=end
   
+  def has_similar_property_value_list?( property_value_list )
+    property_value_list.each do |property_value_pair|
+      if self.property_values.where(:property_id => property_value_pair[:property_id], 
+                          :value_id => property_value_pair[:value_id]).count == 0 
+          next
+      else
+        return true 
+      end
+    end
+    
+    return false 
+    
+  end
+  
+  def create_variant_item( product_creator, property_value_list )
+    if self.has_similar_property_value_list?( property_value_list )
+      return nil
+    end
+  end
+  # 
+  # def self.create_variant_item_on_behalf_of_supplier(product_creator, supplier, 
+  #                             base_item, 
+  #                             property_value_list )
+  #  
+  #   if not self.valid_item_params_to_create_items_on_behalf_of_supplier( product_creator, property_value_list , supplier )
+  #     return nil
+  #   end
+  #   
+  #   if self.has_similar_property_value_list_with_base_item( property_value_list )
+  #     return nil
+  #   end
+  #   
+  #   
+  # 
+  #   item = Item.create(:name => item_params[:name])
+  # 
+  #   item.supplier_id = supplier.id 
+  #   # item.brand_id = brand.id 
+  # 
+  #   item.embed_property_value_list( property_value_list )
+  # 
+  #   return item 
+  # end
+  # 
 end
