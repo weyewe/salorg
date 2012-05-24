@@ -120,10 +120,38 @@ Product.direct_promote_variant_item_to_product_on_behalf_of_supplier(product_cre
 
 # product creation is OK, with the final price attached. But we need the base price 
 
+# Inbound documents: output: ReceivalReceipt
+
+# PO will produce many receival_receipts
+# ReturnNotice will produce one receival_receipt
+# DataMigration will produce one receival_receipt -> Increase the ItemBatch 
+
 # then, add the quantity. There has to be documents to add the quantity
-# Incoming documents: from the PO -> Receipt Delivery
-# incoming documents: from the customer 
-# Incoming Documents: data migration 
+# => (assumed to be good)
+  # flow: item quantity is expected to be added -> repeat more 
+  # we need much leaner organization for second skin. it is shit now. can't be hierarchial.
+  # in this case, the PO creator is the owner/director | or even the sales manager himself
+    # sales manager clicked create purchase request 
+      # finance | or in this case director will ask the 
+      # => buyer will be forwarded of this PR
+      # the buyer has to come out with  the item availability, price,  and estimated delivery, or the director has to chase
+        # for it. Buyer needs to call actively, and report to the finance
+      # =>  if those 3 metric makes sense, enter those data, click create PO from PR
+      # -> click approve (negotiate with the seller about the price, key in the price)
+        # Purchase Order will be generated 
+      # based on this PO, warehouse will receive the ordered item (might be partial receival)
+      # adding quantity based on the purchase order is easy. 
+# Incoming documents: from the PO -*> Receipt Delivery
+# Incoming Documents: data migration  DataMigration -> ReceiptDelivery
+
+# => (assumed to be bad)
+# incoming documents: from the customer SalesOrder -> ReturnNotice -> ReceiptDelivery
+
+
+# Outbound documents: output: DeliveryReceipt
+  # sending things to supplier   based on SupplierReturnDocument
+  # sending things to customer based on SalesOrderDocument
+  # sending things to customer based on CustomerReplacementDocument
 
 
 

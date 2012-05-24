@@ -37,4 +37,30 @@ class User < ActiveRecord::Base
   end
   
   
+=begin
+  As Sales Manager
+=end
+
+  def proposed_purchases
+    PurchaseRequest.find(:all,:conditions => {
+      :purchase_requester_id => self.id 
+    })
+  end
+  
+  
+=begin
+  As Director or PO approval -> It can't be finance for now. they are all shit. 
+=end
+
+  def approved_purchase_requests
+    PurchaseRequest.find(:all,:conditions => {
+      :purchase_requester_id => self.id ,
+      :is_purchase_order_created => true 
+    })
+  end
+  
+=begin
+  as the warehouse officer, receiving the goods
+=end
+  
 end

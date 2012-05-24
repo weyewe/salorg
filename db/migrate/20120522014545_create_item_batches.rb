@@ -11,7 +11,7 @@ class CreateItemBatches < ActiveRecord::Migration
       t.integer :item_id 
       
       # linked 
-      t.integer :purchase_order_id 
+      t.integer :purchase_id 
 
       t.timestamps
     end
