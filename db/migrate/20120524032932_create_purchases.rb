@@ -30,8 +30,10 @@ class CreatePurchases < ActiveRecord::Migration
       t.boolean :is_multiple_delivery , :default => false 
       
       t.string :purchase_order_identification_number 
+      t.integer :total_quantity_delivered , :default => 0
       
-     
+      # quantity delivered might be more than what is asked 
+      # how will this impact the price? just take it as bonus 
       
       t.timestamps
     end

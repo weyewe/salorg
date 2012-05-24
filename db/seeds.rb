@@ -141,6 +141,8 @@ Product.direct_promote_variant_item_to_product_on_behalf_of_supplier(product_cre
         # Purchase Order will be generated 
       # based on this PO, warehouse will receive the ordered item (might be partial receival)
       # adding quantity based on the purchase order is easy. 
+      
+      
 # Incoming documents: from the PO -*> Receipt Delivery
 # Incoming Documents: data migration  DataMigration -> ReceiptDelivery
 
@@ -152,6 +154,11 @@ Product.direct_promote_variant_item_to_product_on_behalf_of_supplier(product_cre
   # sending things to supplier   based on SupplierReturnDocument
   # sending things to customer based on SalesOrderDocument
   # sending things to customer based on CustomerReplacementDocument
+  
+  
+# => Incoming Delivery Receipt -> recording the receival delivery of goods (from supplier, from member)
+# => Outgoing Delivery Receipt -> recording the  sending delivery of goods ( to supplier because of reject, to member to exchange
+# their goods)
 
 
 

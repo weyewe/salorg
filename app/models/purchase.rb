@@ -3,6 +3,8 @@ class Purchase < ActiveRecord::Base
   
   has_one :item_batch
   
+  has_many :incoming_deliveries, :as => :incoming_deliverable
+  
   def pending_approval_purchase_requests
     # if it is the pasponsel.com, we take company params. :)
     PurchaseRequest.find(:all, :conditions => {
